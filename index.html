@@ -34,21 +34,21 @@
           </ul>
           <!-- Nav panes-->
             <div id="signup-form">
-              <form class="mt-5 flex flex-col ">
-                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="text" placeholder="Full name">
-                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="text" placeholder="Hotel name">
-                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="number" placeholder="Total room">
-                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="number" placeholder="Contact">
-                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="email" placeholder="Email">
-                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="password" placeholder="Password">
-                <button class="bg-blue-500  py-2 rounded">Register</button>
+              <form class="mt-5 flex flex-col reg-form">
+                <input required name="fullName" class="outline-none border rounded text-lg py-2 px-3 mb-3" type="text" placeholder="Full name">
+                <input required name="hotelName" class="outline-none border rounded text-lg py-2 px-3 mb-3" type="text" placeholder="Hotel name">
+                <input required name="tootleRoom" class="outline-none border rounded text-lg py-2 px-3 mb-3" type="number" placeholder="Total room">
+                <input required name="contact" class="outline-none border rounded text-lg py-2 px-3 mb-3" type="number" placeholder="Contact">
+                <input required name="email" class="outline-none border rounded text-lg py-2 px-3 mb-3" type="email" placeholder="Email">
+                <input required name="password" class="outline-none border rounded text-lg py-2 px-3 mb-3" type="password" placeholder="Password">
+                <button type="submit" class="bg-blue-500  py-2 rounded">Register</button>
               </form>
             </div>
-            <div id="login-form" class="full hidden">
+            <div id="login-form" class="full hidden log-form">
               <form class="mt-5 flex flex-col">
                 <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="email" placeholder="Email">
                 <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="password" placeholder="Password">
-                <button class="bg-blue-500  py-2 rounded">Login</button>
+                <button type="submit" class="bg-blue-500  py-2 rounded">Login</button>
               </form>
             </div>
         </div>
