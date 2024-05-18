@@ -20,6 +20,40 @@
         <h3 class="sm:hidden font-medium">HMS</h3>
       </div>
     </nav>
+
+    <div style="background-image: url(https://images.pexels.com/photos/271624/pexels-photo-271624.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1); background-position: center; background-size: cover;" class="p-5 flex items-center justify-center h-[90vh] ">
+      <div class="flex flex-col gap-3 w-[600px] p-5 shadow-xl">
+        <div class="w-full">
+          <ul class="flex gap-5 justify-around">
+            <li id="signup-tab" class="py-2 px-4 rounded bg-blue-500 border active-tab cursor-pointer">
+              Signup
+            </li>
+            <li id="login-tab" class="py-2 px-4 rounded border group cursor-pointer">
+              Login
+            </li>
+          </ul>
+          <!-- Nav panes-->
+            <div id="signup-form">
+              <form class="mt-5 flex flex-col ">
+                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="text" placeholder="Full name">
+                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="text" placeholder="Hotel name">
+                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="number" placeholder="Total room">
+                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="number" placeholder="Contact">
+                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="email" placeholder="Email">
+                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="password" placeholder="Password">
+                <button class="bg-blue-500  py-2 rounded">Register</button>
+              </form>
+            </div>
+            <div id="login-form" class="full hidden">
+              <form class="mt-5 flex flex-col">
+                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="email" placeholder="Email">
+                <input class="outline-none border rounded text-lg py-2 px-3 mb-3" type="password" placeholder="Password">
+                <button class="bg-blue-500  py-2 rounded">Login</button>
+              </form>
+            </div>
+        </div>
+    </div>
+
   </section>
 </body>
 </html>
