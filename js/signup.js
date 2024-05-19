@@ -68,10 +68,8 @@ const signup = ()=>{
                     })
                     if(checkPassword !== undefined){
                         swal("Success", "Successful Login !", "success")
+                        window.location = "profile.html"
                         logForm.reset()
-                        setTimeout(()=>{
-                            window.location = "pages/profile.html"
-                        },2000)
                     }else{
                         swal("Warning", "Wrong Password !", "warning")
                         logForm.reset()
