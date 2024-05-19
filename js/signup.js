@@ -8,7 +8,7 @@ const signup = ()=>{
     const logForm = document.querySelector(".log-form")
     const regFormAllInput = regForm.querySelectorAll("input")
     const logFormAllInput = logForm.querySelectorAll("input")
-
+   
     let userInfo = []
 
     loginTab.addEventListener("click",()=>{
@@ -47,6 +47,47 @@ const signup = ()=>{
             regForm.reset()
         }
         
+    })
+
+    // ==== Login Function ==== //
+
+    logForm.addEventListener("submit", (e)=>{
+        e.preventDefault()
+        if(logFormAllInput[0].value !== ""){
+            if(logFormAllInput[1].value !== ""){
+
+                // Check emain in your database
+                let checkEmail = userInfo.find(data=> {
+                    return data.email == logFormAllInput[0].value
+                })
+                if(checkEmail !== undefined){
+
+                    // match password
+                    let checkPassword = userInfo.find(data=>{
+                        return data.password == logFormAllInput[1].value
+                    })
+                    if(checkPassword !== undefined){
+                        swal("Success", "Successful Login !", "success")
+                        logForm.reset()
+                        setTimeout(()=>{
+                            window.location = "pages/profile.html"
+                        },2000)
+                    }else{
+                        swal("Warning", "Wrong Password !", "warning")
+                        logForm.reset()
+                    }
+
+                }
+                else{
+                    swal("Warning", "Email not Registered !", "warning")
+                }
+                
+            }else{
+                swal("Warning", "Password is empty !", "warning")
+            }
+        }else{
+            swal("Warning", "Email is empty !", "warning")
+        }
     })
 }
 
