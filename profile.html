@@ -5,20 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="style.css">
+    <script type="module" src="./js/profile.js"></script>
+
 </head>
 <body>
     <nav class="h-[10vh] flex items-center justify-between px-2 sm:px-5 shadow-md">
         <div class="flex items-center h-[8vh] gap-3">
           <img src="hotel.png" alt="" class="h-[8vh] w-[8vh]">
-          <h1 class="text-lg font-medium hidden sm:block">Royal Hotel</h1>
+          <h1 class="text-lg font-medium name">HMS</h1>
         </div>
         <div  class="sm:w-[500px] w-[200px] ">
             <input style="height: 6.5vh;" class="outline-none border sm:w-[500px] w-[200px] rounded  px-3" placeholder="search" type="text">
             <button class="h-[7vh] bg-blue-500 py-2 px-4 rounded">Search</button>
         </div>
-        <div class="flex gap-3">
-          <button class="px-4 py-2 bg-blue-500 rounded">Logout</button>
-        </div>
+          <button class="px-4 py-2 bg-blue-500 rounded logout">Logout</button>
       </nav>
 </body>
 </html>
