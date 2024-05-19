@@ -69,6 +69,7 @@ const signup = ()=>{
                     if(checkPassword !== undefined){
                         swal("Success", "Successful Login !", "success")
                         window.location = "profile.html"
+                        sessionStorage.setItem("__au__", JSON.stringify(checkEmail))
                         logForm.reset()
                     }else{
                         swal("Warning", "Wrong Password !", "warning")
