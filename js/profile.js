@@ -36,3 +36,19 @@ const handleTabclick = (activeTab)=>{
 Object.keys(tabs).forEach(tab=>{
     tabs[tab].addEventListener("click",()=> handleTabclick(tab))
 })
+
+const registerBtn = document.querySelector(".register-btn")
+const modelBox = document.querySelector(".model")
+const closeBtn = document.querySelector(".close")
+
+registerBtn.addEventListener("click",()=>{
+    modelBox.classList.remove("hidden")
+})
+modelBox.addEventListener("click",(e)=>{
+    if(e.target == e.currentTarget){
+        modelBox.classList.add("hidden")
+    }
+})
+closeBtn.addEventListener("click",()=>{
+    modelBox.classList.add("hidden")
+})
