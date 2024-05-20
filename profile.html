@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     <link rel="stylesheet" href="style.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
     <script type="module" src="./js/profile.js"></script>
 
 </head>
@@ -20,5 +22,66 @@
         </div>
           <button class="px-4 py-2 bg-blue-500 rounded logout">Logout</button>
       </nav>
+
+      <div class="w-full p-5 h-[90vh]">
+        <div class="w-full flex flex-col gap-5">
+          <ul class="flex gap-5 ">
+            <li id="booking" class="py-2 px-4 rounded bg-blue-500 border active-tab cursor-pointer">
+              Booking
+            </li>
+            <li id="in-house" class="py-2 px-4 rounded border group cursor-pointer">
+              In House
+            </li>
+            <li id="archive" class="py-2 px-4 rounded border group cursor-pointer">
+              Archive
+            </li>
+            <li id="cashier" class="py-2 px-4 rounded border group cursor-pointer">
+              Cashier
+            </li>
+          </ul>
+         
+          <div class="flex justify-around shadow-sm">
+              <button style="background-color: #136185;" class=" py-2 px-4 rounded">Register</button>
+              <button style="background-color: #136185;" class=" py-2 px-4 rounded">Print</button>
+              <button style="background-color: #136185;" class=" py-2 px-4 rounded ">Total Booking</button>  
+          </div>
+          <div >
+            <h1 style="font-size: 24px;" class="font-medium">All booking data</h1>
+            <table style="text-align: center;" class="w-full mt-4 ">
+              <thead>
+                <tr style="border-color: black;" class="border">
+                  <th>Sr. No.</th>
+                  <th>Location</th>
+                  <th>Room No</th>
+                  <th>Fullname</th>
+                  <th>Checkin</th>
+                  <th>Checkout</th>
+                  <th>Total Person</th>
+                  <th>Notice</th>
+                  <th>Registerd At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody style="padding: 20px;" class="border">
+                  <tr>
+                    <td>1</td>
+                    <td>Mumbai</td>
+                    <td>15</td>
+                    <td>Alok</td>
+                    <td>12-08-2024</td>
+                    <td>15-08-2024</td>
+                    <td>4</td>
+                    <td>All includes</td>
+                    <td>12-08-2024</td>
+                    <td style="font-size: 20px;">
+                      <i  style="background-color: rgb(20, 123, 219); padding: 4px;" class='bx bx-edit cursor-pointer'></i>
+                      <i  style="background-color: rgb(231, 235, 23); padding: 4px;" class='bx bx-message-alt-check cursor-pointer'></i>
+                      <i style="background-color: rgb(219, 20, 20); padding: 4px;" class='bx bx-trash cursor-pointer'></i>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+      </div>
 </body>
 </html>
