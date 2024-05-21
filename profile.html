@@ -6,7 +6,7 @@
     <title>Profile</title>
     <link rel="stylesheet" href="style.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js" defer></script>
     <script type="module" src="./js/profile.js"></script>
 
 </head>
@@ -64,25 +64,8 @@
                   <th>Action</th>
                 </tr>
               </thead>
-              <tbody style="padding: 20px;" class="border">
-                  <tr>
-                    <td>1</td>
-                    <td>Mumbai</td>
-                    <td>15</td>
-                    <td>Alok</td>
-                    <td>12-08-2024</td>
-                    <td>15-08-2024</td>
-                    <td>4</td>
-                    <td>99999999</td>
-                    <td>6000 Rs</td>
-                    <td>All includes</td>
-                    <td>12-08-2024</td>
-                    <td style="font-size: 20px;">
-                      <i  style="background-color: rgb(20, 123, 219); padding: 4px;" class='bx bx-edit cursor-pointer'></i>
-                      <i  style="background-color: rgb(231, 235, 23); padding: 4px;" class='bx bx-message-alt-check cursor-pointer'></i>
-                      <i style="background-color: rgb(219, 20, 20); padding: 4px;" class='bx bx-trash cursor-pointer'></i>
-                    </td>
-                  </tr>
+              <tbody style="padding: 20px;" class="border booking-list">
+                  
               </tbody>
             </table>
           </div>
@@ -96,33 +79,36 @@
             <span class="cursor-pointer"><i class='bx bx-x close'></i></span>
           </h1>
           <div class="model-body">
-            <form style="padding-top: 10px;" class="reg-form">
+            <form style="padding-top: 10px;" class="booking-form">
               <div style="margin-top: 12px; gap: 8px;" class="flex gap-2">
-                <input class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Full Name">
-                <input class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Location">
+                <input required name="fullName" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Full Name">
+                <input required name="location" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Location">
               </div>
               <div style="margin-top: 12px; gap: 8px;" class="flex gap-2">
-                <input class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Room No.">
-                <input class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Total Person">
+                <input required name="roomNo" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Room No.">
+                <input required name="totalPeople" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Total Person">
               </div>
               <div style="margin-top: 12px; gap: 8px;" class="flex gap-2">
                 <span>
                   <label for="">Check-in date</label>
-                  <input class="outline-none border w-full px-3 py-2 text-lg" type="date">
+                  <input required name="checkInDate" class="outline-none border w-full px-3 py-2 text-lg" type="date">
                 </span>
                 <span>
                   <label for="">Check-out date</label>
-                  <input class="outline-none border w-full px-3 py-2 text-lg" type="date">
+                  <input required name="checkOutDate" class="outline-none border w-full px-3 py-2 text-lg" type="date">
                 </span>
               </div>
               <div style="margin-top: 12px; gap: 8px;" class="flex gap-2">
-                <input class="outline-none border w-full px-3 py-2 text-lg" type="number" placeholder="Mobile Number">
-                <input class="outline-none border w-full px-3 py-2 text-lg" type="number" placeholder="Price">
+                <input required name="number" class="outline-none border w-full px-3 py-2 text-lg" type="number" placeholder="Mobile Number">
+                <input required name="price" class="outline-none border w-full px-3 py-2 text-lg" type="number" placeholder="Price">
               </div>
               <div style="margin-top: 12px;">
-                <textarea class="outline-none border w-full px-3 py-2 text-lg" placeholder="notice"></textarea>
+                <textarea name="notice" class="outline-none border w-full px-3 py-2 text-lg" placeholder="Notice"></textarea>
               </div>
-              <button class="bg-blue-500 w-full py-2 font-medium">Register</button>
+              <div>
+                <button type="submit" class="bg-blue-500 w-full py-2 font-medium">Register</button>
+                <button style="background-color: #e0ac1c;" type="button" class="hidden w-full py-2 font-medium">Update</button>
+              </div>
             </form>
           </div>
         </div>
