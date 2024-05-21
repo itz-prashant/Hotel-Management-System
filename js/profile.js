@@ -74,7 +74,6 @@ export const fetchData = (key) => {
   }
 };
 allBookingData = fetchData(user + "_allBookingData");
-console.log(allBookingData);
 
 const formatDate = (data)=>{
   const date = new Date(data)
@@ -83,6 +82,37 @@ const formatDate = (data)=>{
   let dd = date.getDate()
   return `${dd}/${mm}/${yy}`
 }
+// booking delete coding
+
+const deleteFunc = ()=>{
+  const deleteBtn = bookingList.querySelectorAll(".delete")
+
+  deleteBtn.forEach((btn, index)=>{
+    btn.addEventListener("click",()=>{
+      swal({
+        title: "Are you sure?",
+        text: "Once deleted, you will not be able to recover this imaginary file!",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+      })
+      .then((willDelete) => {
+        if (willDelete) {
+          allBookingData.splice(index, 1)
+       localStorage.setItem(user + "_allBookingData", JSON.stringify(allBookingData))
+       showBookingData()
+          swal("Poof! Your data has been deleted!", {
+            icon: "success",
+          });
+        } else {
+          swal("Your data is safe!");
+        }
+      })
+       
+    })
+  })
+}
+
 
 regForm.addEventListener("submit", (e) => {
   e.preventDefault();
@@ -122,12 +152,12 @@ const showBookingData = () => {
             <td>${item.notice}</td>
             <td>${formatDate(item.createdAt)}</td>
             <td style="font-size: 20px;">
-              <i  style="background-color: rgb(20, 123, 219); padding: 4px;" class='bx bx-edit cursor-pointer'></i>
-              <i  style="background-color: rgb(231, 235, 23); padding: 4px;" class='bx bx-message-alt-check cursor-pointer'></i>
-              <i style="background-color: rgb(219, 20, 20); padding: 4px;" class='bx bx-trash cursor-pointer'></i>
+              <i  style="background-color: rgb(20, 123, 219); padding: 4px;" class='bx bx-edit cursor-pointer edit'></i>
+              <i  style="background-color: rgb(231, 235, 23); padding: 4px;" class='bx bx-message-alt-check cursor-pointer check-in'></i>
+              <i style="background-color: rgb(219, 20, 20); padding: 4px;" class='bx bx-trash cursor-pointer delete'></i>
             </td>
         </tr>`
   });
+  deleteFunc()
 };
-
 showBookingData()
