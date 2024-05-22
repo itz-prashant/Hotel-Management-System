@@ -45,8 +45,32 @@
               <button style="background-color: #136185;" class=" py-2 px-4 rounded">Print</button>
               <button style="background-color: #136185;" class=" py-2 px-4 rounded ">Total Booking</button>  
           </div>
-          <div >
-            <h1 style="font-size: 24px;" class="font-medium">All booking data</h1>
+          <div class="booking-tab-chart ">
+            <h1 style="font-size: 24px;" class="font-medium">All Booking data</h1>
+            <table style="text-align: center;" class="w-full mt-4 ">
+              <thead>
+                <tr style="border-color: black;" class="border">
+                  <th>Sr. No.</th>
+                  <th>Fullname</th>
+                  <th>Location</th>
+                  <th>Room No</th>
+                  <th>Total Person</th>
+                  <th>Checkin</th>
+                  <th>Checkout</th>
+                  <th>Mobile</th>
+                  <th>Price</th>
+                  <th>Notice</th>
+                  <th>Registerd At</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody style="padding: 20px;" class="border booking-list">
+                  
+              </tbody>
+            </table>
+          </div>
+          <div class="inhouse-tab-chart hidden">
+            <h1 style="font-size: 24px;" class="font-medium">All Inhouse data</h1>
             <table style="text-align: center;" class="w-full mt-4 ">
               <thead>
                 <tr style="border-color: black;" class="border">
@@ -74,12 +98,50 @@
       <!-- Model code -->
 
       <div class="model hidden" style="background-color: rgba(0, 0, 0, 0.5); position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
-        <div style="position: absolute; top: 50%; left: 50%; width: 600px; background-color: white; transform: translate(-50%, -50%); padding: 20px;">
-          <h1 style="font-size: 25px" class="font-medium flex justify-between">Registration Form 
+        <div class="booking-form" style="position: absolute; top: 50%; left: 50%; width: 600px; background-color: white; transform: translate(-50%, -50%); padding: 20px;">
+          <h1 style="font-size: 25px" class="font-medium flex justify-between">Booking Registration Form 
             <span class="cursor-pointer"><i class='bx bx-x close'></i></span>
           </h1>
           <div class="model-body">
             <form style="padding-top: 10px;" class="booking-form">
+              <div style="margin-top: 12px; gap: 8px;" class="flex gap-2">
+                <input required name="fullName" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Full Name">
+                <input required name="location" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Location">
+              </div>
+              <div style="margin-top: 12px; gap: 8px;" class="flex gap-2">
+                <input required name="roomNo" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Room No.">
+                <input required name="totalPeople" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Total Person">
+              </div>
+              <div style="margin-top: 12px; gap: 8px;" class="flex gap-2">
+                <span>
+                  <label for="">Check-in date</label>
+                  <input required name="checkInDate" class="outline-none border w-full px-3 py-2 text-lg" type="date">
+                </span>
+                <span>
+                  <label for="">Check-out date</label>
+                  <input required name="checkOutDate" class="outline-none border w-full px-3 py-2 text-lg" type="date">
+                </span>
+              </div>
+              <div style="margin-top: 12px; gap: 8px;" class="flex gap-2">
+                <input required name="number" class="outline-none border w-full px-3 py-2 text-lg" type="number" placeholder="Mobile Number">
+                <input required name="price" class="outline-none border w-full px-3 py-2 text-lg" type="number" placeholder="Price">
+              </div>
+              <div style="margin-top: 12px;">
+                <textarea name="notice" class="outline-none border w-full px-3 py-2 text-lg" placeholder="Notice"></textarea>
+              </div>
+              <div>
+                <button type="submit" class="bg-blue-500 w-full py-2 font-medium register">Register</button>
+                <button style="background-color: #e0ac1c;" type="button" class="hidden w-full py-2 font-medium update">Update</button>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="hidden inhouse-form" style="position: absolute; top: 50%; left: 50%; width: 600px; background-color: white; transform: translate(-50%, -50%); padding: 20px;">
+          <h1 style="font-size: 25px" class="font-medium flex justify-between">In-House Registration Form 
+            <span class="cursor-pointer"><i class='bx bx-x close'></i></span>
+          </h1>
+          <div class="model-body">
+            <form style="padding-top: 10px;" class="inhouse-form">
               <div style="margin-top: 12px; gap: 8px;" class="flex gap-2">
                 <input required name="fullName" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Full Name">
                 <input required name="location" class="outline-none border w-full px-3 py-2 text-lg" type="text" placeholder="Location">

@@ -25,6 +25,25 @@ const tabs = {
   cashierTab: document.getElementById("cashier"),
 };
 
+const tabsData = {
+  bookingTab: document.querySelector(".booking-tab-chart"),
+  inhouseTab: document.querySelector(".inhouse-tab-chart"),
+}
+const form = {
+  bookingTab: document.querySelector(".booking-form"),
+  inhouseTab: document.querySelector(".inhouse-form"),
+}
+
+const handleActiveChartData = (activeData)=>{
+  Object.keys(tabsData).forEach(chart=>{
+    if(activeData === chart){
+      tabsData[chart].classList.remove("hidden")
+    }else{
+      tabsData[chart].classList.add("hidden")
+    }
+  })
+}
+
 const handleTabclick = (activeTab) => {
   Object.keys(tabs).forEach((tab) => {
     if (tab === activeTab) {
@@ -35,13 +54,25 @@ const handleTabclick = (activeTab) => {
   });
 };
 
+const handleForm = (activeTab)=>{
+  Object.keys(form).forEach(data=>{
+    if(activeTab === data){
+      form[data].classList.remove("hidden")
+    }else{
+      form[data].classList.add("hidden")
+    }
+  })
+}
+
 Object.keys(tabs).forEach((tab) => {
   tabs[tab].addEventListener("click", () => handleTabclick(tab));
+  tabs[tab].addEventListener("click", () => handleActiveChartData(tab));
+  tabs[tab].addEventListener("click", () => handleForm(tab));
 });
 
 const registerBtn = document.querySelector(".register-btn");
 const modelBox = document.querySelector(".model");
-const closeBtn = document.querySelector(".close");
+const closeBtn = document.querySelectorAll(".close");
 
 registerBtn.addEventListener("click", () => {
   modelBox.classList.remove("hidden");
@@ -51,14 +82,20 @@ registerBtn.addEventListener("click", () => {
 modelBox.addEventListener("click", (e) => {
   if (e.target == e.currentTarget) {
     modelBox.classList.add("hidden");
-    regForm.reset()
+    regForm.reset('')
     modelRegisterBtn.classList.remove("hidden")
     modelUpdateBtn.classList.add("hidden")
   }
 });
-closeBtn.addEventListener("click", () => {
+closeBtn[0].addEventListener("click", () => {
   modelBox.classList.add("hidden");
-  regForm.reset()
+  regForm.reset('')
+  modelRegisterBtn.classList.remove("hidden")
+    modelUpdateBtn.classList.add("hidden")
+});
+closeBtn[1].addEventListener("click", () => {
+  modelBox.classList.add("hidden");
+  inhouseRegForm.reset('')
   modelRegisterBtn.classList.remove("hidden")
     modelUpdateBtn.classList.add("hidden")
 });
@@ -71,12 +108,17 @@ const textArea = regForm.querySelector("textarea");
 const bookingList = document.querySelector(".booking-list");
 let allBookingData = [];
 
+// inHouse registration form
+const inhouseRegForm = document.querySelector(".inhouse-form");
+const allInHouseInput = inhouseRegForm.querySelectorAll("input");
+const inHouseTextarea = inhouseRegForm.querySelector("textarea");
+let allInhouseData = []
+
 // getting data from storage
 
 export const fetchData = (key) => {
   if (localStorage.getItem(key) !== null) {
     const data = JSON.parse(localStorage.getItem(key));
-    console.log(data);
     return data;
   }
   else{
@@ -151,25 +193,41 @@ function deleteFunc (){
   })
 }
 
-regForm.addEventListener("submit", (e) => {
-  e.preventDefault();
+
+
+// registration function 
+
+const registrationfunction = (textArea, input, arrData, key)=>{
   let data = { notice: textArea.value,
     createdAt : new Date()
    };
-  for (let el of bookingFormAllInput) {
+  for (let el of input) {
     let key = el.name;
     let value = el.value;
     data[key] = value;
   }
-  allBookingData.push(data);
+  arrData.push(data);
   localStorage.setItem(
-    user + "_allBookingData",
-    JSON.stringify(allBookingData)
+    key,
+    JSON.stringify(arrData)
   );
   swal("Done", "Booking Success", "success");
-  regForm.reset();
+  
+}
+
+regForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  registrationfunction(textArea, bookingFormAllInput , allBookingData, user + "_allBookingData")
   modelBox.classList.add("hidden");
   showBookingData()
+  regForm.reset('')
+});
+
+inhouseRegForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  registrationfunction(inHouseTextarea, allInHouseInput , allInhouseData , user + "_allInHouseData")
+  modelBox.classList.add("hidden");
+  inhouseRegForm.reset('')
 });
 
 // Update function
