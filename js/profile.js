@@ -122,6 +122,8 @@ const inHouseBodyList = document.querySelector(".inhouse-list");
 
 let allInhouseData = []
 
+let allArchiveData = []
+
 // getting data from storage
 
 export const fetchData = (key) => {
@@ -135,6 +137,7 @@ export const fetchData = (key) => {
 };
 allBookingData = fetchData(user + "_allBookingData");
 allInhouseData = fetchData(user + "_allInHouseData");
+allArchiveData = fetchData(user + "_allArchiveData");
 
 const formatDate = (data)=>{
   const date = new Date(data)
@@ -169,9 +172,33 @@ const showData = (element, arr, key) => {
   });
   deleteFunc(element, arr, key)
   updateDataFun(element, arr, key)
+  checkInOut(element, arr, key)
 };
 showData(bookingList, allBookingData, user+"_allBookingData" )
 showData(inHouseBodyList, allInhouseData, user + "_allInHouseData")
+
+// CheckInOut coding
+
+function checkInOut (element, arr, key){
+  let checkBtn = element.querySelectorAll(".check-in")
+  checkBtn.forEach((btn,index)=>{
+    btn.addEventListener("click",()=>{
+      let data = arr[index]
+      arr.splice(index, 1)
+      // localStorage.setItem(key, JSON.stringify(arr))
+      let tmp = key.split("_")[1]
+      if(tmp == "allBookingData"){
+        allInhouseData.push(data)
+        localStorage.setItem(user+"_allInHouseData", JSON.stringify(allInhouseData))
+        showData(element, arr, key)
+      }else{
+        allArchiveData.push(data)
+        localStorage.setItem(user+"_allArchiveData", JSON.stringify(allArchiveData))
+        showData(element, arr, key)
+      }
+    })
+  })
+}
 
 // delete coding
 
