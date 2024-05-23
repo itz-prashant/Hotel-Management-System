@@ -73,31 +73,37 @@ Object.keys(tabs).forEach((tab) => {
 const registerBtn = document.querySelector(".register-btn");
 const modelBox = document.querySelector(".model");
 const closeBtn = document.querySelectorAll(".close");
+const modelRegisterBtn = document.querySelectorAll(".register")
+const modelUpdateBtn = document.querySelectorAll(".update")
 
 registerBtn.addEventListener("click", () => {
   modelBox.classList.remove("hidden");
-  modelRegisterBtn.classList.remove("hidden")
-  modelUpdateBtn.classList.add("hidden")
+  modelRegisterBtn[0].classList.remove("hidden")
+  modelRegisterBtn[1].classList.remove("hidden")
+  modelUpdateBtn[0].classList.add("hidden")
+  modelUpdateBtn[1].classList.add("hidden")
 });
 modelBox.addEventListener("click", (e) => {
   if (e.target == e.currentTarget) {
     modelBox.classList.add("hidden");
-    regForm.reset('')
-    modelRegisterBtn.classList.remove("hidden")
-    modelUpdateBtn.classList.add("hidden")
+    modelRegisterBtn[0].classList.remove("hidden")
+    modelRegisterBtn[1].classList.remove("hidden")
+    modelUpdateBtn[0].classList.add("hidden")
+    modelUpdateBtn[1].classList.add("hidden")
+    regForm.reset()
   }
 });
 closeBtn[0].addEventListener("click", () => {
   modelBox.classList.add("hidden");
-  regForm.reset('')
-  modelRegisterBtn.classList.remove("hidden")
-    modelUpdateBtn.classList.add("hidden")
+  modelRegisterBtn[0].classList.remove("hidden")
+  modelUpdateBtn[0].classList.add("hidden")
+  regForm.reset()
 });
 closeBtn[1].addEventListener("click", () => {
   modelBox.classList.add("hidden");
-  inhouseRegForm.reset('')
-  modelRegisterBtn.classList.remove("hidden")
-    modelUpdateBtn.classList.add("hidden")
+  modelRegisterBtn[1].classList.remove("hidden")
+  modelUpdateBtn[1].classList.add("hidden")
+  inhouseRegForm.reset()
 });
 
 // booking Registration form //
@@ -112,6 +118,8 @@ let allBookingData = [];
 const inhouseRegForm = document.querySelector(".inhouse-form");
 const allInHouseInput = inhouseRegForm.querySelectorAll("input");
 const inHouseTextarea = inhouseRegForm.querySelector("textarea");
+const inHouseBodyList = document.querySelector(".inhouse-list");
+
 let allInhouseData = []
 
 // getting data from storage
@@ -126,6 +134,7 @@ export const fetchData = (key) => {
   }
 };
 allBookingData = fetchData(user + "_allBookingData");
+allInhouseData = fetchData(user + "_allInHouseData");
 
 const formatDate = (data)=>{
   const date = new Date(data)
@@ -135,10 +144,10 @@ const formatDate = (data)=>{
   return `${dd}/${mm}/${yy}`
 }
 
-const showBookingData = () => {
-  bookingList.innerHTML = ""
-  allBookingData.forEach((item, index)=>{
-    bookingList.innerHTML += `
+const showData = (element, arr, key) => {
+  element.innerHTML = ""
+  arr.forEach((item, index)=>{
+    element.innerHTML += `
         <tr>
             <td>${index +1}</td>
             <td>${item.fullName}</td>
@@ -158,15 +167,16 @@ const showBookingData = () => {
             </td>
         </tr>`
   });
-  deleteFunc()
-  updateDataFun()
+  deleteFunc(element, arr, key)
+  updateDataFun(element, arr, key)
 };
-showBookingData()
+showData(bookingList, allBookingData, user+"_allBookingData" )
+showData(inHouseBodyList, allInhouseData, user + "_allInHouseData")
 
-// booking delete coding
+// delete coding
 
-function deleteFunc (){
-  const deleteBtn = bookingList.querySelectorAll(".delete")
+function deleteFunc (element, arr, key){
+  const deleteBtn = element.querySelectorAll(".delete")
   deleteBtn.forEach((btn, index)=>{
     btn.addEventListener("click",()=>{
       swal({
@@ -178,9 +188,10 @@ function deleteFunc (){
       })
       .then((willDelete) => {
         if (willDelete) {
-          allBookingData.splice(index, 1)
-       localStorage.setItem(user + "_allBookingData", JSON.stringify(allBookingData))
-       showBookingData()
+          arr.splice(index, 1)
+       localStorage.setItem(key, JSON.stringify(arr))
+       showData(bookingList, allBookingData, user+"_allBookingData")
+       showData(inHouseBodyList, allInhouseData, user + "_allInHouseData")
           swal("Poof! Your data has been deleted!", {
             icon: "success",
           });
@@ -219,61 +230,77 @@ regForm.addEventListener("submit", (e) => {
   e.preventDefault();
   registrationfunction(textArea, bookingFormAllInput , allBookingData, user + "_allBookingData")
   modelBox.classList.add("hidden");
-  showBookingData()
-  regForm.reset('')
+  showData(bookingList, allBookingData, user+"_allBookingData")
+  regForm.reset()
 });
 
 inhouseRegForm.addEventListener("submit", (e) => {
   e.preventDefault();
   registrationfunction(inHouseTextarea, allInHouseInput , allInhouseData , user + "_allInHouseData")
   modelBox.classList.add("hidden");
-  inhouseRegForm.reset('')
+  showData(inHouseBodyList, allInhouseData, user + "_allInHouseData")
+  inhouseRegForm.reset()
 });
 
 // Update function
-const modelRegisterBtn = document.querySelector(".register")
-const modelUpdateBtn = document.querySelector(".update")
-const allBtn = regForm.querySelectorAll("button")
 
-function updateDataFun (){
-  let editBtn = bookingList.querySelectorAll(".edit")
+
+function updateDataFun (element, arr, key){
+  let editBtn = element.querySelectorAll(".edit")
   editBtn.forEach((btn,index)=>{
-
     btn.addEventListener("click",()=>{
 
       registerBtn.click()
-      modelRegisterBtn.classList.add("hidden")
-      modelUpdateBtn.classList.remove("hidden")
+      if(key == 'prashant_allBookingData'){
+        modelRegisterBtn[0].classList.add("hidden")
+        modelUpdateBtn[0].classList.remove("hidden")
+      }else{
+        modelRegisterBtn[1].classList.add("hidden")
+      modelUpdateBtn[1].classList.remove("hidden")
+      }
 
-      let obj = allBookingData[index]
-      console.log(obj);
-      bookingFormAllInput[0].value = obj.fullName
-      bookingFormAllInput[1].value = obj.location
-      bookingFormAllInput[2].value = obj.roomNo
-      bookingFormAllInput[3].value = obj.totalPeople
-      bookingFormAllInput[4].value = obj.checkInDate
-      bookingFormAllInput[5].value = obj.checkOutDate
-      bookingFormAllInput[6].value = obj.number
-      bookingFormAllInput[7].value = obj.price
-      textArea.value = obj.notice
+      let allInput = key == 'prashant_allBookingData' ? regForm.querySelectorAll("input")  : inhouseRegForm.querySelectorAll("input")
+
+      let allTextarea = key == 'prashant_allBookingData' ? regForm.querySelector("textarea")  : inhouseRegForm.querySelector("textarea")
+
+      let allBtn = key == 'prashant_allBookingData' ? regForm.querySelectorAll("button") : inhouseRegForm.querySelectorAll("button")
+
+      let obj = arr[index]
+      allInput[0].value = obj.fullName
+      allInput[1].value = obj.location
+      allInput[2].value = obj.roomNo
+      allInput[3].value = obj.totalPeople
+      allInput[4].value = obj.checkInDate
+      allInput[5].value = obj.checkOutDate
+      allInput[6].value = obj.number
+      allInput[7].value = obj.price
+      allTextarea.value = obj.notice
 
       allBtn[1].addEventListener("click",()=>{
          let formData = {
-          notice: textArea.value,
+          notice: allTextarea.value,
           createdAt: new Date()
          }
-         for (let el of bookingFormAllInput) {
+         for (let el of allInput) {
           let key = el.name;
           let value = el.value;
           formData[key] = value;
         }
-        allBookingData[index] = formData
-        localStorage.setItem(user+"_allBookingData", JSON.stringify(allBookingData))
-        regForm.reset()
-        modelRegisterBtn.classList.remove("hidden")
-        modelUpdateBtn.classList.add("hidden")
-        modelBox.classList.add("hidden");
-        showBookingData()
+        arr[index] = formData
+        localStorage.setItem(key, JSON.stringify(arr))
+        if(key == 'prashant_allBookingData'){
+          modelRegisterBtn[0].classList.remove("hidden")
+          modelUpdateBtn[0].classList.add("hidden")
+          showData(bookingList, allBookingData, key)
+          modelBox.classList.add("hidden");
+          regForm.reset()
+        }else{
+          modelRegisterBtn[1].classList.remove("hidden")
+          modelUpdateBtn[1].classList.add("hidden")
+          showData(inHouseBodyList, allInhouseData, key)
+          modelBox.classList.add("hidden");
+          inhouseRegForm.reset()
+        }
       })
     })
   })
