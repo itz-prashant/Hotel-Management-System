@@ -28,6 +28,7 @@ const tabs = {
 const tabsData = {
   bookingTab: document.querySelector(".booking-tab-chart"),
   inhouseTab: document.querySelector(".inhouse-tab-chart"),
+  archiveTab: document.getElementById(".archive-tab-chart"),
 }
 const form = {
   bookingTab: document.querySelector(".booking-form"),
