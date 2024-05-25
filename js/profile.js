@@ -28,7 +28,7 @@ const tabs = {
 const tabsData = {
   bookingTab: document.querySelector(".booking-tab-chart"),
   inhouseTab: document.querySelector(".inhouse-tab-chart"),
-  archiveTab: document.getElementById(".archive-tab-chart"),
+  archiveTab: document.querySelector(".archive-tab-chart"),
 }
 const form = {
   bookingTab: document.querySelector(".booking-form"),
@@ -37,6 +37,9 @@ const form = {
 
 const handleActiveChartData = (activeData)=>{
   Object.keys(tabsData).forEach(chart=>{
+    showData(bookingList, allBookingData, user+"_allBookingData" )
+    showData(inHouseBodyList, allInhouseData, user + "_allInHouseData")
+    showData(archiveList, allArchiveData, user + "_allArchiveData")
     if(activeData === chart){
       tabsData[chart].classList.remove("hidden")
     }else{
@@ -123,6 +126,8 @@ const inHouseBodyList = document.querySelector(".inhouse-list");
 
 let allInhouseData = []
 
+// archive data
+const archiveList = document.querySelector(".archive-list")
 let allArchiveData = []
 
 // getting data from storage
@@ -149,6 +154,7 @@ const formatDate = (data)=>{
 }
 
 const showData = (element, arr, key) => {
+  let tmp = key.split("_")[1]
   element.innerHTML = ""
   arr.forEach((item, index)=>{
     element.innerHTML += `
@@ -166,10 +172,15 @@ const showData = (element, arr, key) => {
             <td>${formatDate(item.createdAt)}</td>
             <td style="font-size: 20px;" class="btn">
               <i  style="background-color: rgb(20, 123, 219); padding: 4px;" class='bx bx-edit cursor-pointer edit'></i>
-              <i  style="background-color: rgb(231, 235, 23); padding: 4px;" class='bx bx-message-alt-check cursor-pointer check-in'></i>
+              <i  style="background-color: rgb(231, 235, 23); padding: 4px;" class="bx bx-message-alt-check cursor-pointer check-in"></i>
               <i style="background-color: rgb(219, 20, 20); padding: 4px;" class='bx bx-trash cursor-pointer delete'></i>
             </td>
         </tr>`
+
+        let allEditbtn = element.querySelectorAll(".edit")
+          if(tmp === 'allArchiveData'){
+            allEditbtn.forEach(btn=> btn.style.display = "none")
+          }
   });
   deleteFunc(element, arr, key)
   updateDataFun(element, arr, key)
@@ -177,23 +188,32 @@ const showData = (element, arr, key) => {
 };
 showData(bookingList, allBookingData, user+"_allBookingData" )
 showData(inHouseBodyList, allInhouseData, user + "_allInHouseData")
+showData(archiveList, allArchiveData, user + "_allArchiveData")
 
 // CheckInOut coding
 
 function checkInOut (element, arr, key){
   let checkBtn = element.querySelectorAll(".check-in")
+ 
+  let tmp = key.split("_")[1]
+ 
   checkBtn.forEach((btn,index)=>{
     btn.addEventListener("click",()=>{
       let data = arr[index]
       arr.splice(index, 1)
-      // localStorage.setItem(key, JSON.stringify(arr))
-      let tmp = key.split("_")[1]
+      localStorage.setItem(key, JSON.stringify(arr))
+      
       if(tmp == "allBookingData"){
-        allInhouseData.push(data)
+        allInhouseData.unshift(data)
         localStorage.setItem(user+"_allInHouseData", JSON.stringify(allInhouseData))
         showData(element, arr, key)
-      }else{
-        allArchiveData.push(data)
+      }else if(tmp === 'allArchiveData'){
+        allBookingData.unshift(data)
+        localStorage.setItem(user+"_allBookingData", JSON.stringify(allBookingData))
+        showData(element, arr, key)
+      }
+      else{
+        allArchiveData.unshift(data)
         localStorage.setItem(user+"_allArchiveData", JSON.stringify(allArchiveData))
         showData(element, arr, key)
       }
@@ -220,6 +240,7 @@ function deleteFunc (element, arr, key){
        localStorage.setItem(key, JSON.stringify(arr))
        showData(bookingList, allBookingData, user+"_allBookingData")
        showData(inHouseBodyList, allInhouseData, user + "_allInHouseData")
+       showData(archiveList, allArchiveData, user + "_allArchiveData")
           swal("Poof! Your data has been deleted!", {
             icon: "success",
           });
@@ -245,7 +266,7 @@ const registrationfunction = (textArea, input, arrData, key)=>{
     let value = el.value;
     data[key] = value;
   }
-  arrData.push(data);
+  arrData.unshift(data);
   localStorage.setItem(
     key,
     JSON.stringify(arrData)
