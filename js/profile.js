@@ -4,6 +4,7 @@ let user;
 const userName = document.querySelector(".name");
 const logoutBtn = document.querySelector(".logout");
 const regForm = document.querySelector(".booking-form");
+const search = document.querySelector(".search-input")
 
 if (sessionStorage.getItem("__au__") === null) {
   window.location = "index.html";
@@ -42,8 +43,10 @@ const handleActiveChartData = (activeData)=>{
     showData(archiveList, allArchiveData, user + "_allArchiveData")
     if(activeData === chart){
       tabsData[chart].classList.remove("hidden")
+      tabsData[chart].classList.add("select")
     }else{
       tabsData[chart].classList.add("hidden")
+      tabsData[chart].classList.remove("select")
     }
   })
 }
@@ -52,8 +55,10 @@ const handleTabclick = (activeTab) => {
   Object.keys(tabs).forEach((tab) => {
     if (tab === activeTab) {
       tabs[tab].classList.add("bg-blue-500");
+      tabs[tab].classList.add("active");
     } else {
       tabs[tab].classList.remove("bg-blue-500");
+      tabs[tab].classList.remove("active");
     }
   });
 };
@@ -110,8 +115,43 @@ closeBtn[1].addEventListener("click", () => {
   inhouseRegForm.reset()
 });
 
-// booking Registration form //
+// Search coading
 
+const searchFun = ()=>{
+  let value = search.value.toLowerCase()
+  let element = document.querySelector(".tab-content .search-pan.active")
+  let tr = document.querySelectorAll(".select tbody tr")
+  for(let el of tr){
+    let srNo = el.querySelectorAll("td")[0].innerText
+    let name = el.querySelectorAll("td")[1].innerText
+    let location = el.querySelectorAll("td")[2].innerText
+    let roomNo= el.querySelectorAll("td")[3].innerText
+    let mobile= el.querySelectorAll("td")[7].innerText
+    if(srNo.indexOf(value) != -1){
+      el.classList.remove("hidden")
+    }else if(name.toLocaleLowerCase().indexOf(value) != -1){
+      el.classList.remove("hidden")
+    }
+    else if(location.toLocaleLowerCase().indexOf(value) != -1){
+      el.classList.remove("hidden")
+    }
+    else if(roomNo.toLocaleLowerCase().indexOf(value) != -1){
+      el.classList.remove("hidden")
+    }
+    else if(mobile.toLocaleLowerCase().indexOf(value) != -1){
+      el.classList.remove("hidden")
+    }
+    else{
+      el.classList.add("hidden")
+    }
+  }
+}
+
+search.addEventListener("input", ()=>{
+  searchFun()
+})
+
+// booking Registration form //
 
 const bookingFormAllInput = regForm.querySelectorAll("input");
 const textArea = regForm.querySelector("textarea");

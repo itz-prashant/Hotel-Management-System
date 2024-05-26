@@ -16,23 +16,23 @@
           <img src="hotel.png" alt="" class="h-[8vh] w-[8vh]">
           <h1 class="text-lg font-medium name">HMS</h1>
         </div>
-        <div  class="sm:w-[500px] w-[200px] ">
-            <input style="height: 6.5vh;" class="outline-none border sm:w-[500px] w-[200px] rounded  px-3" placeholder="search" type="text">
+        <div   class="sm:w-[500px] w-[200px] ">
+            <input style="height: 6.5vh; width: 400px;" class="outline-none border sm:w-[500px] w-[200px] rounded  px-3 search-input" placeholder="search" type="text">
             <button class="h-[7vh] bg-blue-500 py-2 px-4 rounded">Search</button>
         </div>
           <button class="px-4 py-2 bg-blue-500 rounded logout">Logout</button>
       </nav>
 
-      <div class="w-full p-5 h-[90vh]">
-        <div class="w-full flex flex-col gap-5">
+      <div class="w-full p-5 h-[90vh] tab-content">
+        <div class="w-full flex flex-col gap-5 ">
           <ul class="flex gap-5 ">
-            <li id="booking" class="py-2 px-4 rounded bg-blue-500 border active-tab cursor-pointer">
+            <li id="booking" class="py-2 px-4 rounded bg-blue-500 border active search-pan cursor-pointer">
               Booking
             </li>
-            <li id="in-house" class="py-2 px-4 rounded border group cursor-pointer">
+            <li id="in-house" class="py-2 px-4 rounded border search-pan group cursor-pointer">
               In House
             </li>
-            <li id="archive" class="py-2 px-4 rounded border group cursor-pointer">
+            <li id="archive" class="py-2 px-4 rounded border search-pan group cursor-pointer">
               Archive
             </li>
             <li id="cashier" class="py-2 px-4 rounded border group cursor-pointer">
@@ -45,7 +45,8 @@
               <button style="background-color: #136185;" class=" py-2 px-4 rounded">Print</button>
               <button style="background-color: #136185;" class=" py-2 px-4 rounded ">Total Booking</button>  
           </div>
-          <div class="booking-tab-chart ">
+
+          <div class="booking-tab-chart select">
             <h1 style="font-size: 24px;" class="font-medium">All Booking data</h1>
             <table style="text-align: center;" class="w-full mt-4 ">
               <thead>
